@@ -599,6 +599,24 @@ RUN if [ ${INSTALL_YAML} = true ]; then \
 ;fi
 
 ###########################################################################
+# DBASE:
+###########################################################################
+
+USER root
+
+ARG INSTALL_DBASE=false
+
+RUN if [ ${INSTALL_DBASE} = true ]; then \
+
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+        pecl install dbase; \
+    else \
+        pecl install dbase-7.0.0beta1; \
+    fi && \
+    docker-php-ext-enable dbase \
+;fi
+
+###########################################################################
 # Install additional locales:
 ###########################################################################
 
